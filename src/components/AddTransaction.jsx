@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { useReducer } from "react";
+
+function reducer(state, action) {
+  const { type } = action;
+  switch (type) {
+    case "addHeader":
+      return { ...state, header: action.header };
+    case "addAmount":
+      return { ...state, amount: action.amount };
+  }
+  throw Error("uh oh!");
+}
 function AddTransaction() {
-  const [header, setHeader] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [state, dispatch] = useReducer(reducer, {
+    header: "",
+    amount: 0,
+  });
 
   function handleHeaderChange(e) {
-    setHeader(e.target.value);
-    console.log(header);
+    dispatch({ type: "addHeader", header: e.target.value });
   }
 
   function handleAmountChange(e) {
-    setAmount(e.target.value);
-    console.log(amount);
+    dispatch({ type: "addAmount", amount: e.target.value });
   }
 
   return (
@@ -21,7 +32,7 @@ function AddTransaction() {
         <input
           type="text"
           placeholder="Enter Header..."
-          value={header}
+          value={state.header}
           onChange={handleHeaderChange}
         ></input>
         <label>
@@ -32,7 +43,7 @@ function AddTransaction() {
         <input
           type="number"
           placeholder="Enter amount..."
-          value={amount}
+          value={state.amount}
           onChange={handleAmountChange}
         ></input>
         <button className="btn">Add Transaction</button>
