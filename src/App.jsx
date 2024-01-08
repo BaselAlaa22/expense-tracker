@@ -4,9 +4,9 @@ import Balance from "./components/Balance.jsx";
 import IncomeEpxense from "./components/IncomeExpense.jsx";
 import TransactionList from "./components/TransactionList.jsx";
 import AddTransaction from "./components/AddTransaction.jsx";
-import { GlobalContext } from "./context.js";
+import GlobalContextProvider from "./context.jsx";
 
-const intialState = [
+export const intialState = [
   { id: 1, header: "Flower", amount: -20 },
   { id: 2, header: "Salary", amount: 300 },
   { id: 3, header: "Book", amount: -10 },
@@ -18,14 +18,14 @@ function App() {
     <div>
       <Header />
       {/* context provider */}
-      <GlobalContext.Provider value={intialState}>
+      <GlobalContextProvider>
         <div className=".container">
           <Balance />
           <IncomeEpxense />
           <TransactionList />
           <AddTransaction />
         </div>
-      </GlobalContext.Provider>
+      </GlobalContextProvider>
     </div>
   );
 }

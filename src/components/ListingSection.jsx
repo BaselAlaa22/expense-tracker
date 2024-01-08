@@ -1,13 +1,20 @@
 import { useContext } from "react";
-import { GlobalContext } from "../context";
+import { useGlobalContext } from "../context";
 
 function ListingSection() {
   //Context consumer
-  const list = useContext(GlobalContext);
+  const { value, updateValue } = useGlobalContext();
+
+  function handleDeletebtn(id) {
+    let updatedList = value.filter((element) => {
+      return element.id != id;
+    });
+    updateValue(updatedList);
+  }
 
   return (
     <>
-      {list.map((element) => {
+      {value.map((element) => {
         let style = "";
         if (element.amount < 0) {
           style = "minus";
@@ -15,9 +22,16 @@ function ListingSection() {
           style = "plus";
         }
         return (
-          <li className={style}>
+          <li className={style} key={element.id}>
             {element.header} <span>${element.amount}</span>
-            <button className="delete-btn">x</button>
+            <button
+              className="delete-btn"
+              onClick={() => {
+                handleDeletebtn(element.id);
+              }}
+            >
+              x
+            </button>
           </li>
         );
       })}
