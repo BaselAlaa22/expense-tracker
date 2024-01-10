@@ -21,6 +21,7 @@ function ListingSection() {
         } else {
           style = "plus";
         }
+
         return (
           <li className={style} key={element.id}>
             {element.header} <span>${element.amount}</span>

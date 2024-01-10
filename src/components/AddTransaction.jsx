@@ -23,7 +23,7 @@ function AddTransaction() {
   }
 
   function handleAmountChange(e) {
-    dispatch({ type: "addAmount", amount: e.target.value });
+    dispatch({ type: "addAmount", amount: Number(e.target.value) });
   }
 
   function handleFormSubmit(e) {
